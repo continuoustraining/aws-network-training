@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploy root stack
+
+Parameters:
+  InstanceTypeParameter: 
+    Type: String
+    Default: t2.micro
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+  KeyPairParameter:
+    Type: String
+    Default: fortinet-workshop-troubleshooting
+    Description: "Name of an existing EC2 KeyPair to enable SSH access to the web server"
+  EnvironmentType: 
+    Description: The environment type
+    Type: String
+    Default: test
+    AllowedValues: 
+      - prod
+      - test
+    ConstraintDescription: must be a prod or test
+
+Mappings: 
+  RegionMap: 
+    us-east-1: 
+      test: "ami-0cc96feef8c6bbff3"
+
+Resources:
+  RootStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://troubleshooting-network-s3-fortinet.s3.amazonaws.com/test-param-map-stack-root/stack-root-param-mapping-output.yaml
+      TimeoutInMinutes: '60'
+
+Outputs:
+  StackRef:
+    Value: !Ref RootStack

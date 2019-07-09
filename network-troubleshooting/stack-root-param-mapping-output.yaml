@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deploy VPC Stacks
+
+Resources:
+  Vpc1Stack:
+      Type: AWS::CloudFormation::Stack
+      Properties:
+        TemplateURL: https://troubleshooting-network-s3-fortinet.s3.amazonaws.com/test-param-map-stack-root/Stack-VPC1.yaml
+        TimeoutInMinutes: '60'
+
+  Vpc2Stack:
+      Type: AWS::CloudFormation::Stack
+      Properties:
+        TemplateURL: https://troubleshooting-network-s3-fortinet.s3.amazonaws.com/test-param-map-stack-root/Stack-VPC2.yaml
+        TimeoutInMinutes: '60'
+
+  Vpc3Stack:
+      Type: AWS::CloudFormation::Stack
+      Properties:
+        TemplateURL: https://troubleshooting-network-s3-fortinet.s3.amazonaws.com/test-param-map-stack-root/Stack-VPC3.yaml
+        TimeoutInMinutes: '60'
+
+Outputs: 
+    Vpc1Stack:
+      Value: !Ref Vpc1Stack
+    Vpc2Stack:
+      Value: !Ref Vpc2Stack
+    Vpc3Stack:
+      Value: !Ref Vpc3Stack
