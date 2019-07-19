@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Exercise of Network Troubleshooting
+
+Parameters:
+  InstanceTypeParameter:
+    Type: String
+    Default: t2.micro
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+  KeyPairParameter:
+    Type: String
+    Default: fortinet-workshop-troubleshooting
+    Description: "Name of an existing EC2 KeyPair to enable SSH access to the web server"
+
+Resources:
+  Vpc1Stack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/network-troubleshooting/Stack-VPC1.yml
+      TimeoutInMinutes: '60'
+      Parameters:
+        InstanceTypeParameter: !Ref InstanceTypeParameter
+        KeyPairParameter: !Ref KeyPairParameter
+
+  Vpc2Stack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/network-troubleshooting/Stack-VPC2.yml
+      TimeoutInMinutes: '60'
+      Parameters:
+        InstanceTypeParameter: !Ref InstanceTypeParameter
+        KeyPairParameter: !Ref KeyPairParameter
+
+  Vpc3Stack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/network-troubleshooting/Stack-VPC3.yml
+      TimeoutInMinutes: '60'
+      Parameters:
+        InstanceTypeParameter: !Ref InstanceTypeParameter
+        KeyPairParameter: !Ref KeyPairParameter

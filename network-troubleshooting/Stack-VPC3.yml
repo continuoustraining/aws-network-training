@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: Deploy VPC Network 3
 
 Parameters:
-  InstanceTypeParameter: 
+  InstanceTypeParameter:
     Type: String
     Default: t2.micro
     Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
@@ -10,19 +10,54 @@ Parameters:
     Type: String
     Default: fortinet-workshop-troubleshooting
     Description: "Name of an existing EC2 KeyPair to enable SSH access to the web server"
-  EnvironmentType: 
-    Description: The environment type
-    Type: String
-    Default: test
-    AllowedValues: 
-      - prod
-      - test
-    ConstraintDescription: must be a prod or test
 
-Mappings: 
-  RegionMap: 
-    us-east-1: 
-      test: "ami-0cc96feef8c6bbff3"
+Mappings:
+  RegionMap:
+    # North Virginia
+    us-east-1:
+      linux2: "ami-0cc96feef8c6bbff3"
+    # Ohio
+    us-east-2:
+      linux2: "ami-0d8f6eb4f641ef691"
+    # California
+    us-west-1:
+      linux2: "ami-056ee704806822732"
+    # Oregon
+    us-west-2:
+      linux2: "ami-082b5a644766e0e6f"
+    # Mumbai
+    ap-south-1:
+      linux2: "ami-0d2692b6acea72ee6"
+    # Seoul
+    ap-northeast-2:
+      linux2: "ami-095ca789e0549777d"
+    # Singapore
+    ap-southeast-1:
+      linux2: "ami-01f7527546b557442"
+    # Sydney
+    ap-southeast-2:
+      linux2: "ami-0dc96254d5535925f"
+    # Tokyo
+    ap-northeast-1:
+      linux2: "ami-0c3fd0f5d33134a76"
+    # Frankfurt
+    eu-central-1:
+      linux2: "ami-0cc293023f983ed53"
+    # Ireland
+    eu-west-1:
+      linux2: "ami-0bbc25e23a7640b9b"
+    # London
+    eu-west-2:
+      linux2: "ami-0d8e27447ec2c8410"
+    # Paris
+    eu-west-3:
+      linux2: "ami-0adcddd3324248c4c"
+    # Stockholm
+    eu-north-1:
+      linux2: "ami-3f36be41"
+    # Sao Paulo
+    sa-east-1:
+      linux2: "ami-058943e7d9b9cabfb"
 
 Resources:
   VPC3:
@@ -52,19 +87,19 @@ Resources:
     Properties:
       VpcId: !Ref VPC3
       CidrBlock: 10.3.0.0/24
-      AvailabilityZone: !Select 
+      AvailabilityZone: !Select
         - '0'
         - !GetAZs 'us-east-1'
       Tags:
         - Key: Name
           Value: Public-Subnet-3
-  
+
   PublicSubnet32:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC3
       CidrBlock: 10.3.4.0/24
-      AvailabilityZone: !Select 
+      AvailabilityZone: !Select
         - '0'
         - !GetAZs 'us-east-1'
       Tags:
@@ -76,13 +111,13 @@ Resources:
     Properties:
       VpcId: !Ref VPC3
       CidrBlock: 10.3.3.0/24
-      AvailabilityZone: !Select 
+      AvailabilityZone: !Select
         - '0'
         - !GetAZs 'us-east-1'
       Tags:
         - Key: Name
           Value: Private-Subnet-3
-  
+
 
   NaclPublic3:
     Type: AWS::EC2::NetworkAcl
@@ -96,7 +131,7 @@ Resources:
   NaclEntryPublicSshInbound3:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
-      NetworkAclId: 
+      NetworkAclId:
         Ref: NaclPublic3
       RuleNumber: '102'
       Protocol: "6"
@@ -113,7 +148,7 @@ Resources:
   NaclEntryPublicCustomTcpInbound3:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
-      NetworkAclId: 
+      NetworkAclId:
         Ref: NaclPublic3
       RuleNumber: '103'
       Protocol: "6"
@@ -130,7 +165,7 @@ Resources:
   NaclEntryPublicAllIcmpInbound3:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
-      NetworkAclId: 
+      NetworkAclId:
         Ref: NaclPublic3
       RuleNumber: '104'
       Protocol: "1"
@@ -144,7 +179,7 @@ Resources:
   NaclEntryPublicAllTcpOutbound3:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
-      NetworkAclId: 
+      NetworkAclId:
         Ref: NaclPublic3
       RuleNumber: '100'
       Protocol: "6"
@@ -161,7 +196,7 @@ Resources:
   NaclEntryPublicAllIcmpOutbound3:
     Type: AWS::EC2::NetworkAclEntry
     Properties:
-      NetworkAclId: 
+      NetworkAclId:
         Ref: NaclPublic3
       RuleNumber: '101'
       Protocol: "1"
@@ -245,7 +280,7 @@ Resources:
         Ref: PublicSubnet31 #PublicSubnet31 to make IGW not set in route tables
       RouteTableId:
         Ref: RouteTablePublic3
-      
+
   RouteTablePrivate3:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -263,20 +298,20 @@ Resources:
       RouteTableId:
         Ref: RouteTablePrivate3
 
-  Ec2Instance3: 
+  Ec2Instance3:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType:
-        Ref: InstanceTypeParameter 
-      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", !Ref EnvironmentType]
-      KeyName: 
+        Ref: InstanceTypeParameter
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", linux2]
+      KeyName:
         Ref: KeyPairParameter
-      NetworkInterfaces: 
+      NetworkInterfaces:
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
-          GroupSet: 
+          GroupSet:
             - Ref: SecurityGroupIngressEgress3
-          SubnetId: 
+          SubnetId:
             Ref: PublicSubnet31
       Tags:
       - Key: Name

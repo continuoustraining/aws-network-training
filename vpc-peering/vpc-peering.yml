@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: Deploy VPC Stacks
+Description: VPC Peering network bootstrap
 
 Parameters:
   InstanceTypeParameter:
@@ -15,7 +15,7 @@ Resources:
   Vpc1Stack:
       Type: AWS::CloudFormation::Stack
       Properties:
-        TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/vpc-peering/Stack-VPC1.yaml
+        TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/vpc-peering/Stack-VPC1.yml
         TimeoutInMinutes: '60'
         Parameters:
           InstanceTypeParameter: !Ref InstanceTypeParameter
@@ -24,7 +24,7 @@ Resources:
   Vpc2Stack:
       Type: AWS::CloudFormation::Stack
       Properties:
-        TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/vpc-peering/Stack-VPC2.yaml
+        TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/vpc-peering/Stack-VPC2.yml
         TimeoutInMinutes: '60'
         Parameters:
           InstanceTypeParameter: !Ref InstanceTypeParameter
@@ -33,7 +33,7 @@ Resources:
   Vpc3Stack:
       Type: AWS::CloudFormation::Stack
       Properties:
-        TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/vpc-peering/Stack-VPC3.yaml
+        TemplateURL: https://aws-network-troubleshooting.s3.amazonaws.com/vpc-peering/Stack-VPC3.yml
         TimeoutInMinutes: '60'
         Parameters:
           InstanceTypeParameter: !Ref InstanceTypeParameter

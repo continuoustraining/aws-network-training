@@ -16,27 +16,45 @@ Mappings:
     # North Virginia
     us-east-1:
       linux2: "ami-0cc96feef8c6bbff3"
+    # Ohio
+    us-east-2:
+      linux2: "ami-0d8f6eb4f641ef691"
+    # California
+    us-west-1:
+      linux2: "ami-056ee704806822732"
+    # Oregon
+    us-west-2:
+      linux2: "ami-082b5a644766e0e6f"
+    # Mumbai
+    ap-south-1:
+      linux2: "ami-0d2692b6acea72ee6"
+    # Seoul
+    ap-northeast-2:
+      linux2: "ami-095ca789e0549777d"
+    # Singapore
+    ap-southeast-1:
+      linux2: "ami-01f7527546b557442"
+    # Sydney
+    ap-southeast-2:
+      linux2: "ami-0dc96254d5535925f"
+    # Tokyo
+    ap-northeast-1:
+      linux2: "ami-0c3fd0f5d33134a76"
+    # Frankfurt
+    eu-central-1:
+      linux2: "ami-0cc293023f983ed53"
+    # Ireland
+    eu-west-1:
+      linux2: "ami-0bbc25e23a7640b9b"
+    # London
+    eu-west-2:
+      linux2: "ami-0d8e27447ec2c8410"
     # Paris
     eu-west-3:
       linux2: "ami-0adcddd3324248c4c"
     # Stockholm
     eu-north-1:
       linux2: "ami-3f36be41"
-    # London
-    eu-west-2:
-      linux2: "ami-0d8e27447ec2c8410"
-    # Ireland
-    eu-west-1:
-      linux2: "ami-0bbc25e23a7640b9b"
-    # Frankfurt
-    eu-central-1:
-      linux2: "ami-x"
-    # Tokyo
-    ap-northeast-1:
-      linux2: "ami-0c3fd0f5d33134a76"
-    # Singapore
-    ap-southeast-1:
-      linux2: "ami-01f7527546b557442"
     # Sao Paulo
     sa-east-1:
       linux2: "ami-058943e7d9b9cabfb"
