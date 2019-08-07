@@ -58,6 +58,12 @@ Mappings:
     # Sao Paulo
     sa-east-1:
       linux2: "ami-058943e7d9b9cabfb"
+    # Canada
+    ca-central-1:
+      linux2: "ami-0d4ae09ec9361d8ac"
+    # Hong Kong
+    ap-east-1:
+      linux2: "ami-570c7726"
 
 Resources:
   VPC1:
